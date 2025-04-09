@@ -6,6 +6,8 @@ def burbuja(lista):
                 lista[i+1]=lista[i]
                 lista[i]=temp
     return lista
-                
-listaprueba = [5,7,5,5,4,5,5,5]
-print(burbuja(listaprueba))
+
+
+if __name__ =="__main__":
+    listaprueba = [5,7,5,5,4,5,1,3,76,4,2,-1,3,123,12356,1223,1,5,5]
+    print(burbuja(listaprueba))
