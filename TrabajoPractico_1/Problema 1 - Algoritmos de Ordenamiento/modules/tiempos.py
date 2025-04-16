@@ -9,7 +9,7 @@ def medir_tiempos(metodo_ord, tamanos):
         # datos = []
         # for _ in range(n):
         #     datos.append(randint(1, 10000))
-        datos = [randint(1, 10000) for _ in range(n)]
+        datos = [randint(1, 1000) for _ in range(n)]
 
         inicio = time.perf_counter()
         metodo_ord(datos)
@@ -22,4 +22,4 @@ def medir_tiempos(metodo_ord, tamanos):
 
 if __name__ == '__main__':
     tamanos = [1, 10, 100, 200, 500, 700, 1000]
-    medir_tiempos(radix_sort,tamanos)
+    medir_tiempos(sorted,tamanos)
