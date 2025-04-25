@@ -57,19 +57,17 @@ class ListaDobleEnlazada:
             self.cola = nuevo_nodo
         self.tamanio +=1
     
-    def insertar(self,dato,posicion):
+    def insertar(self,dato,posicion=None):
         if posicion == None:
             posicion = self.tamanio
         if posicion < 0 or posicion > self.tamanio:
-            raise Exception ("Posicion invalida")
+            raise Exception("Posicion invalida")
         
         elif posicion == 0:
             self.agregar_al_inicio(dato)
-            self.tamanio +=1
 
         elif posicion == self.tamanio:
             self.agregar_al_final(dato)
-            self.tamanio +=1
 
         else:
             nuevo_nodo= nodo(dato)
@@ -84,36 +82,41 @@ class ListaDobleEnlazada:
             pivote.anterior = nuevo_nodo
             self.tamanio +=1
             
-    def extraer(self,posicion):
-        if posicion == None:
-            posicion = self.tamanio
+    def extraer(self,posicion=None):
+        if posicion is None:
+            posicion = self.tamanio -1
+        if posicion < 0:
+            posicion += self.tamanio
         if self.tamanio == 0:
-            raise Exception ("La lista no contiene elementos")
-        elif posicion < 0 or posicion > self.tamanio:
-            raise Exception ("Posicion invalida")  
+            raise Exception("La lista no contiene elementos")
+        elif posicion < 0 or posicion >= self.tamanio:
+            raise Exception("Posicion inválida")  
         elif posicion == 0:
-            item= self.cabeza
+            item = self.cabeza.dato
             self.cabeza.siguiente.anterior = None
             self.cabeza = self.cabeza.siguiente 
-            self.tamanio -=1
+            if self.cabeza is None:
+                self.cola = None
+            self.tamanio -= 1
             return item
-        elif posicion == self.tamanio:
-            item = self.cola
+        elif posicion == self.tamanio - 1:
+            item = self.cola.dato
             self.cola.anterior.siguiente = None
-            self.cola= self.cola.anterior
+            self.cola = self.cola.anterior
+            if self.cola is None:
+                self.cabeza = None
             self.tamanio -= 1
             return item
         else:
-            pivote=self.cabeza
-
+            pivote = self.cabeza
             for i in range(posicion):
                 pivote = pivote.siguiente
-
-            item = pivote
+            item = pivote.dato
             pivote.anterior.siguiente = pivote.siguiente
             pivote.siguiente.anterior = pivote.anterior
-            self.tamanio -=1
+            self.tamanio -= 1
             return item
+        
     def copiar(self):
         pivote = self.cabeza
         nueva_lista = ListaDobleEnlazada()
@@ -129,29 +132,34 @@ class ListaDobleEnlazada:
         pivote = self.cabeza
         nueva_lista = ListaDobleEnlazada()
         while pivote is not None:
-            nueva_lista.agregar_al_inicio(pivote.dato)  # Agregar el dato del nodo al inicio
+            nueva_lista.agregar_al_inicio(pivote.dato) 
             pivote = pivote.siguiente
-    # Actualizar los atributos de self con los de nueva_lista
+
         self.cabeza = nueva_lista.cabeza
         self.cola = nueva_lista.cola
         self.tamanio = nueva_lista.tamanio
 
 
     def concatenar(self, lista):
-        nueva_lista = self.copiar()  # Crear una copia de la lista actual
-        pivote = lista.cabeza
+        if lista.esta_vacia():
+            return
 
-    # Agregar los elementos de la segunda lista a la nueva lista
-        while pivote is not None:
-            nueva_lista.agregar_al_final(pivote.dato)
-            pivote = pivote.siguiente
+        lista_copia=lista.copiar()
 
-        return nueva_lista
+        if self.esta_vacia():
+            self.cabeza = lista_copia.cabeza
+            self.cola = lista_copia.cola
+        else:
+            self.cola.siguiente = lista_copia.cabeza
+            lista_copia.cabeza.anterior = self.cola
+            self.cola = lista_copia.cola 
+
+        self.tamanio += lista_copia.tamanio
     
     def __add__(self, lista):
-        return self.concatenar(lista)
-        
-        
+        nueva_lista = self.copiar()
+        nueva_lista.concatenar(lista)
+        return nueva_lista
 
         
 if __name__ == '__main__':
