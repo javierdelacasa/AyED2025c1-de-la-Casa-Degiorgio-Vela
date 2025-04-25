@@ -7,7 +7,7 @@ class nodo:
     def __str__(self):
         return str( (self.dato))
 
-class listaDE:
+class ListaDobleEnlazada:
     def __init__(self):
         self.cabeza = None
         self.cola = None
@@ -33,6 +33,19 @@ class listaDE:
             self.cabeza = nuevo_nodo
         self.tamanio +=1
     
+    def __iter__(self):
+        """Inicializa el iterador en la cabeza de la lista."""
+        self._iterador = self.cabeza
+        return self
+
+    def __next__(self):
+        """Devuelve el siguiente elemento en la iteración."""
+        if self._iterador is None:
+            raise StopIteration
+        dato = self._iterador.dato
+        self._iterador = self._iterador.siguiente
+        return dato
+
     def agregar_al_final(self,dato):
         nuevo_nodo = nodo(dato)
         if self.tamanio == 0:
@@ -71,7 +84,7 @@ class listaDE:
             pivote.anterior = nuevo_nodo
             self.tamanio +=1
             
-    def extraer(self,dato,posicion):
+    def extraer(self,posicion):
         if posicion == None:
             posicion = self.tamanio
         if self.tamanio == 0:
@@ -103,41 +116,68 @@ class listaDE:
             return item
     def copiar(self):
         pivote = self.cabeza
-        nueva_lista = listaDE()
+        nueva_lista = ListaDobleEnlazada()
         if self.tamanio == 0:
-            return listaDE
+            return nueva_lista
         else:
             for i in range (self.tamanio):
-                listaDE.agregar_al_final = pivote
+                nueva_lista.agregar_al_final(pivote.dato)
                 pivote = pivote.siguiente
-            return listaDE
+            return nueva_lista
         
     def invertir(self):
         pivote = self.cabeza
-        nueva_lista = listaDE()
-        if self.tamanio == 0:
-            self = listaDE
-        else:
-            for i in range (self.tamanio):
-                nueva_lista.agregar_al_inicio = pivote
-                pivote = pivote.siguiente
-            self = nueva_lista
+        nueva_lista = ListaDobleEnlazada()
+        while pivote is not None:
+            nueva_lista.agregar_al_inicio(pivote.dato)  # Agregar el dato del nodo al inicio
+            pivote = pivote.siguiente
+    # Actualizar los atributos de self con los de nueva_lista
+        self.cabeza = nueva_lista.cabeza
+        self.cola = nueva_lista.cola
+        self.tamanio = nueva_lista.tamanio
 
+
+    def concatenar(self, lista):
+        nueva_lista = self.copiar()  # Crear una copia de la lista actual
+        pivote = lista.cabeza
+
+    # Agregar los elementos de la segunda lista a la nueva lista
+        while pivote is not None:
+            nueva_lista.agregar_al_final(pivote.dato)
+            pivote = pivote.siguiente
+
+        return nueva_lista
+    
+    def __add__(self, lista):
+        return self.concatenar(lista)
+        
+        
+
+        
 if __name__ == '__main__':
-    print(  nodo(4))
-
-    lista = listaDE()
+    
+    lista = ListaDobleEnlazada()
     lista.agregar_al_final(1)
     lista.agregar_al_final(2)
     lista.agregar_al_final(3)
     lista.agregar_al_inicio(0)
+    lista.agregar_al_final(6)
+    lista.agregar_al_final(8)
+    lista.agregar_al_inicio(12)
     lista.insertar(9,2)
-    listacop = lista.copiar
+    listacop = lista.copiar()
     lista.invertir()
     
+    lista2 = lista+listacop
 
+    pivote = lista2.cabeza
+    for i in range(lista2.tamanio):
+        print(pivote)
+        pivote = pivote.siguiente
+    print("Tamanio")
     pivote = lista.cabeza
     for i in range(lista.tamanio):
         print(pivote)
         pivote = pivote.siguiente
+    
 
