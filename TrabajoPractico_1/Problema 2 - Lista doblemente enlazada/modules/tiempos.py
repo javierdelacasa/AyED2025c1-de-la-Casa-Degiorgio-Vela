@@ -15,7 +15,7 @@ def medir_tiempos_len(tamanos):
         lista.__len__
         fin = time.perf_counter()
         tiempos_len.append(fin - inicio)
-        print(f"Tiempo de funcion len para n={n}: {fin - inicio:.6f} segundos")
+        print(f"Tiempo de funcion len para n={n}: {fin - inicio:.10f} segundos")
     
     return tiempos_len  
 
@@ -31,7 +31,7 @@ def medir_tiempos_copia(tamanos):
         lista.copiar
         fin = time.perf_counter()
         tiempos_copia.append(fin - inicio)
-        print(f"Tiempo de funcion copia para n={n}: {fin - inicio:.6f} segundos")
+        print(f"Tiempo de funcion copia para n={n}: {fin - inicio:.10f} segundos")
     
     return tiempos_copia
 
@@ -47,7 +47,7 @@ def medir_tiempos_invertir(tamanos):
         lista.invertir
         fin = time.perf_counter()
         tiempos_invertir.append(fin - inicio)
-        print(f"Tiempo de funcion invertir para n={n}: {fin - inicio:.6f} segundos")
+        print(f"Tiempo de funcion invertir para n={n}: {fin - inicio:.10f} segundos")
     
     return tiempos_invertir
         
@@ -56,7 +56,7 @@ def medir_tiempos_invertir(tamanos):
     
 
 if __name__ == '__main__':
-    tamanos = [1, 10, 100, 200, 500, 700, 1000]
+    tamanos = [1, 10, 100, 200, 500, 700, 1000, 1000000]
     
     medir_tiempos_len(tamanos)
     
