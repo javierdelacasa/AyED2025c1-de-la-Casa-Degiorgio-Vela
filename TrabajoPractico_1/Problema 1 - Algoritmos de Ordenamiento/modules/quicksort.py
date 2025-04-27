@@ -61,6 +61,6 @@ def ordenamientoRapido(unaLista):
 
 if __name__ == "__main__":
     from random import randint
-    listaprueba = [randint(1,1000) for _ in range(15)]
+    listaprueba = [randint(10000,99999) for _ in range(15)]
     ordenamientoRapido(listaprueba)
     print(listaprueba)
