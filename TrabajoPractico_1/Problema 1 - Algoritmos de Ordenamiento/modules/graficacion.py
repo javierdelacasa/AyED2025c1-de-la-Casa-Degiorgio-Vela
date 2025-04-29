@@ -27,5 +27,5 @@ if __name__ == '__main__':
    from burbuja import burbuja
    from quicksort import ordenamientoRapido
    from radixsort import radix_sort
-   graficar_tiempos([burbuja, ordenamientoRapido, radix_sort])
+   graficar_tiempos([burbuja, ordenamientoRapido, radix_sort, sorted])
    
