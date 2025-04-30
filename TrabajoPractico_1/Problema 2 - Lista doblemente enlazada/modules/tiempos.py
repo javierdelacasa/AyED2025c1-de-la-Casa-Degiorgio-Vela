@@ -1,6 +1,6 @@
 from random import randint
 import time
-from ListaDobleEnlazada import ListaDobleEnlazada
+from LDE import ListaDobleEnlazada
 
 def medir_tiempos_len(tamanos):
     
@@ -12,10 +12,10 @@ def medir_tiempos_len(tamanos):
             lista.agregar_al_final(randint(1, 1000))
             
         inicio = time.perf_counter()
-        lista.__len__
+        len(lista)
         fin = time.perf_counter()
         tiempos_len.append(fin - inicio)
-        print(f"Tiempo de funcion len para n={n}: {fin - inicio:.10f} segundos")
+   #     print(f"Tiempo de funcion len para n={n}: {fin - inicio:.10f} segundos")
     
     return tiempos_len  
 
@@ -28,10 +28,10 @@ def medir_tiempos_copia(tamanos):
         for i in range(n):
             lista.agregar_al_final(randint(1, 1000))
         inicio = time.perf_counter()
-        lista.copiar
+        lista.copiar()
         fin = time.perf_counter()
         tiempos_copia.append(fin - inicio)
-        print(f"Tiempo de funcion copia para n={n}: {fin - inicio:.10f} segundos")
+  #      print(f"Tiempo de funcion copia para n={n}: {fin - inicio:.10f} segundos")
     
     return tiempos_copia
 
@@ -44,10 +44,10 @@ def medir_tiempos_invertir(tamanos):
         for i in range(n):
             lista.agregar_al_final(randint(1, 1000))
         inicio = time.perf_counter()
-        lista.invertir
+        lista.invertir()
         fin = time.perf_counter()
         tiempos_invertir.append(fin - inicio)
-        print(f"Tiempo de funcion invertir para n={n}: {fin - inicio:.10f} segundos")
+      #  print(f"Tiempo de funcion invertir para n={n}: {fin - inicio:.10f} segundos")
     
     return tiempos_invertir
         

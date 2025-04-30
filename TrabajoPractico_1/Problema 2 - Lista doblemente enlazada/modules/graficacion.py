@@ -42,7 +42,7 @@ def graficar_tiempos_copia():
 
     plt.xlabel('Tamaño de la lista')
     plt.ylabel('Tiempo (segundos)')
-    plt.ylim(0, 0.0001)  # Ajusta el límite superior a 1 segundo
+   # plt.ylim(0, 0.0001)  # Ajusta el límite superior a 1 segundo
     plt.title('Tiempos de la funcion copia')
     plt.legend() # para mostrar el nombre del método de ordenamiento. Es el "label" del metodo plot
     plt.grid() # cuadriculado
@@ -64,7 +64,7 @@ def graficar_tiempos_invertir():
 
     plt.xlabel('Tamaño de la lista')
     plt.ylabel('Tiempo (segundos)')
-    plt.ylim(0, 0.0001)  # Ajusta el límite superior a 1 segundo
+  #  plt.ylim(0, 0.0001)  # Ajusta el límite superior a 1 segundo
     plt.title('Tiempos de la funcion invertir')
     plt.legend() # para mostrar el nombre del método de ordenamiento. Es el "label" del metodo plot
     plt.grid() # cuadriculado
