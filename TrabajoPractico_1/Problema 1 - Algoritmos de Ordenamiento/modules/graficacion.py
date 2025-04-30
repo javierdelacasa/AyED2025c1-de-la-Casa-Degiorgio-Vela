@@ -1,10 +1,8 @@
 from matplotlib import pyplot as plt
 from tiempos import medir_tiempos
 
-def graficar_tiempos(lista_metodos_ord):
-    #tamanos = [1, 10, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-    tamanos = [n for n in range(1, 1001, 20)]
-    # figsize es el tamaño de la figura en pulgadas (width, height)
+def graficar_tiempos(lista_metodos_ord, k=1001, l=20):
+    tamanos = [n for n in range(1, k, l)]
     plt.figure(figsize=(10, 6))
 
     for metodo_ord in lista_metodos_ord:
@@ -27,5 +25,8 @@ if __name__ == '__main__':
    from burbuja import burbuja
    from quicksort import ordenamientoRapido
    from radixsort import radix_sort
-   graficar_tiempos([burbuja, ordenamientoRapido, radix_sort, sorted])
-   
+   graficar_tiempos([burbuja])
+   graficar_tiempos([ordenamientoRapido])
+   graficar_tiempos([radix_sort])
+   graficar_tiempos([burbuja, ordenamientoRapido, radix_sort])
+   graficar_tiempos([ordenamientoRapido, radix_sort], 50000, 400)
