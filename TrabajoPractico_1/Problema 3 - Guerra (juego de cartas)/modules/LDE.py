@@ -84,30 +84,32 @@ class ListaDobleEnlazada:
             
     def extraer(self,posicion=None):
         if posicion is None:
-            posicion = self.tamanio -1
+            posicion = self.tamanio - 1
         if posicion < 0:
             posicion += self.tamanio
         if self.tamanio == 0:
             raise Exception("La lista no contiene elementos")
         elif posicion < 0 or posicion >= self.tamanio:
-            raise Exception("Posicion inválida")  
-        elif posicion == 0:
+            raise Exception("Posicion inválida")
+        elif self.tamanio == 1:  # Caso: un solo elemento
             item = self.cabeza.dato
-            self.cabeza.siguiente.anterior = None
-            self.cabeza = self.cabeza.siguiente 
-            if self.cabeza is None:
-                self.cola = None
+            self.cabeza = None
+            self.cola = None
             self.tamanio -= 1
             return item
-        elif posicion == self.tamanio - 1:
+        elif posicion == 0:  # Caso: eliminar el primer elemento
+            item = self.cabeza.dato
+            self.cabeza = self.cabeza.siguiente
+            self.cabeza.anterior = None
+            self.tamanio -= 1
+            return item
+        elif posicion == self.tamanio - 1:  # Caso: eliminar el último elemento
             item = self.cola.dato
-            self.cola.anterior.siguiente = None
             self.cola = self.cola.anterior
-            if self.cola is None:
-                self.cabeza = None
+            self.cola.siguiente = None
             self.tamanio -= 1
             return item
-        else:
+        else:  # Caso: eliminar un elemento intermedio
             pivote = self.cabeza
             for i in range(posicion):
                 pivote = pivote.siguiente
