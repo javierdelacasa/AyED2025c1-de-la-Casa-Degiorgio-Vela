@@ -1,5 +1,5 @@
-from monticulo_min import monticulo
-from modules.paciente import paciente
+from monticulo_min_copy import monticulo
+import paciente
 
 
 class ColaPrioridad(monticulo):
@@ -7,9 +7,9 @@ class ColaPrioridad(monticulo):
         self = monticulo()
     
     def llegada_de_paciente(self, paciente):
-        self.insertar(paciente)
+        self.insertar(paciente,)
 
-    def atender_paciente(self):
+    def atender_paciente(self,'get_riesgo', 'get_llegada'):
         self.eliminarminimo()
 
     def paciente_al_frente(self):
