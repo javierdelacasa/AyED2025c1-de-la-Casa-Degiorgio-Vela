@@ -2,76 +2,81 @@ class monticulo():
     def __init__(self):
         self.lista = [None]
         self.tam = 0
+    
+    def _obtener_valor(self, elem, param):
+        # Si param es un string, se asume atributo; si es int, se asume índice
+        if isinstance(param, str):
+            return getattr(elem, param)() if callable(getattr(elem, param)) else getattr(elem, param)
+        else:
+            return elem[param]
 
-    def infiltArriba(self,i,k=None):
-        if k is None:
+    def _comparar(self, a, b, param1, param2):
+        v1a = self._obtener_valor(a, param1)
+        v1b = self._obtener_valor(b, param1)
+        if v1a < v1b:
+            return True
+        elif v1a == v1b:
+            v2a = self._obtener_valor(a, param2)
+            v2b = self._obtener_valor(b, param2)
+            return v2a < v2b
+        else:
+            return False
+
+    def infiltArriba(self, i, param1=None, param2=None):
+        if param1 is None or param2 is None:
+            # Comportamiento original (por valor directo)
             while i // 2 > 0:
                 if self.lista[i] < self.lista[i // 2]:
-                    tmp = self.lista[i // 2]
-                    self.lista[i // 2] = self.lista[i]
-                    self.lista[i] = tmp
+                    self.lista[i], self.lista[i // 2] = self.lista[i // 2], self.lista[i]
                 i = i // 2
         else:
             while i // 2 > 0:
-                if self.lista[i][k] < self.lista[i // 2][k]:
-                    tmp = self.lista[i // 2][k]
-                    self.lista[i // 2][k] = self.lista[i][k]
-                    self.lista[i][k] = tmp
+                if self._comparar(self.lista[i], self.lista[i // 2], param1, param2):
+                    self.lista[i], self.lista[i // 2] = self.lista[i // 2], self.lista[i]
                 i = i // 2
 
-    def infiltAbajo(self,i,k=None):
-        if k is None:
+    def infiltAbajo(self, i, param1=None, param2=None):
+        if param1 is None or param2 is None:
+            # Comportamiento original (por valor directo)
             while (i * 2) <= self.tam:
-                if self.lista[i] > self.lista[i * 2]:
-                    tmp = self.lista[i * 2]
-                    self.lista[i * 2] = self.lista[i]
-                    self.lista[i] = tmp
-                    i = i * 2
-                elif (i * 2 +1) > self.tam:
-                    break
-                elif self.lista[i] > self.lista[i * 2 + 1]:
-                    tmp = self.lista[i * 2 + 1]
-                    self.lista[i * 2 + 1] = self.lista[i]
-                    self.lista[i] = tmp
-                    i = i * 2 + 1
+                hijo = i * 2
+                if hijo + 1 <= self.tam and self.lista[hijo + 1] < self.lista[hijo]:
+                    hijo = hijo + 1
+                if self.lista[hijo] < self.lista[i]:
+                    self.lista[i], self.lista[hijo] = self.lista[hijo], self.lista[i]
+                    i = hijo
                 else:
                     break
         else:
             while (i * 2) <= self.tam:
-                if self.lista[i][k] > self.lista[i * 2][k]:
-                    tmp = self.lista[i * 2][k]
-                    self.lista[i * 2][k] = self.lista[i][k]
-                    self.lista[i][k] = tmp
-                    i = i * 2
-                elif (i * 2 +1) > self.tam:
-                    break
-                elif self.lista[i][k] > self.lista[i * 2 + 1][k]:
-                    tmp = self.lista[i * 2 + 1][k]
-                    self.lista[i * 2 + 1][k] = self.lista[i][k]
-                    self.lista[i][k] = tmp
-                    i = i * 2 + 1
+                hijo = i * 2
+                if hijo + 1 <= self.tam and self._comparar(self.lista[hijo + 1], self.lista[hijo], param1, param2):
+                    hijo = hijo + 1
+                if self._comparar(self.lista[hijo], self.lista[i], param1, param2):
+                    self.lista[i], self.lista[hijo] = self.lista[hijo], self.lista[i]
+                    i = hijo
                 else:
                     break
-
     
-    def insertar(self,dato):
+    def insertar(self,dato,param1=None, param2=None):
         self.lista.append(dato)
         self.tam = self.tam + 1
-        self.infiltArriba(self.tam)
+        self.infiltArriba(self.tam, param1, param2)
 
     def buscarminimo(self):
         if self.tam == 0:
             return None
         return self.lista[1]
     
-    def eliminarminimo(self):
-        if self.estavacio() == True:
+    def eliminarminimo(self, param1=None, param2=None):
+        if self.estavacio()==True:
             return None
+        minimo = self.lista[1]
         self.lista[1] = self.lista[self.tam]
-        tmp = self.lista.pop()
-        self.tam = self.tam - 1
-        self.infiltAbajo(1)
-        return tmp
+        self.lista.pop()
+        self.tam -= 1
+        self.infiltAbajo(1, param1, param2)
+        return minimo
 
     def estavacio(self):
         return self.tamano() == 0
@@ -85,7 +90,7 @@ class monticulo():
             monticulo_nuevo.insertar(dato)
         return monticulo_nuevo
     
-
+    
         
 if __name__ == "__main__":
     monticulo = monticulo()

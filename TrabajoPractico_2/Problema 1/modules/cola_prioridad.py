@@ -1,4 +1,4 @@
-from monticulo_min_copy import monticulo
+from monticulo_min import monticulo
 from paciente import Paciente
 
 
