@@ -100,6 +100,29 @@ class Nodo:
             self.hijoIzquierdo.preorden()
         if self.hijoDerecho:
             self.hijoDerecho.preorden()
+    
+    def preorden_rango(self, inicio, fin):
+        if inicio <= self.clave <= fin:
+            print(self.clave)
+        if self.tieneHijoIzquierdo() and self.clave > inicio:
+            self.hijoIzquierdo.preorden_rango(inicio, fin)
+        if self.tieneHijoDerecho() and self.clave < fin:
+            self.hijoDerecho.preorden_rango(inicio, fin)
+
+    def preorden_obtencion(self):
+        print(self.cargautil)
+        if self.hijoIzquierdo:
+            self.hijoIzquierdo.preorden_obtencion()
+        if self.hijoDerecho:
+            self.hijoDerecho.preorden_obtencion()
+    
+    def preorden_rango_obtencion(self, inicio, fin):
+        if inicio <= self.clave <= fin:
+            print(self.cargautil)
+        if self.tieneHijoIzquierdo() and self.clave > inicio:
+            self.hijoIzquierdo.preorden_rango_obtencion(inicio, fin)
+        if self.tieneHijoDerecho() and self.clave < fin:
+            self.hijoDerecho.preorden_rango_obtencion(inicio, fin)
 
 class Arbol:
     def __init__(self):
@@ -234,9 +257,27 @@ class Arbol:
             return self.raiz._obtenerminimo_rango(inicio, fin)
         return None
 
-    def preorden(self):
+    def preorden_visualizacion(self):
         if self.raiz is not None:
             self.raiz.preorden()
+        else:
+            print("El árbol está vacío.")
+
+    def preorden_rango_visualizacion(self, inicio, fin):
+        if self.raiz is not None:
+            self.raiz.preorden_rango(inicio, fin)
+        else:
+            print("El árbol está vacío.")
+
+    def preorden_obtencion(self):
+        if self.raiz is not None:
+            self.raiz.preorden_obtencion()
+        else:
+            print("El árbol está vacío.")
+
+    def preorden_rango_obtencion(self, inicio, fin):
+        if self.raiz is not None:
+            self.raiz.preorden_rango_obtencion(inicio, fin)
         else:
             print("El árbol está vacío.")
 
@@ -256,6 +297,8 @@ if __name__ == "__main__":
     print(arbol.obtenerminimo())
     print(arbol.obtenermaximo_rango(0, 40))
     print(arbol.obtenerminimo_rango(9, 20))
+    
+
 
     #Prueba rotaciones
     arbol1 = Arbol()
