@@ -304,4 +304,4 @@ if __name__ == "__main__":
     arbol1 = Arbol()
     for clave in [1,2,4,3,5,6,7]:
         arbol1.agregar(clave, clave * 2)
-    arbol1.preorden()
+    arbol1.preorden_visualizacion()
