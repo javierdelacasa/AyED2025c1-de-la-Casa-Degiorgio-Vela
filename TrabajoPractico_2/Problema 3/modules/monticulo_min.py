@@ -16,14 +16,12 @@ class monticulo():
         if v1a < v1b:
             return True
         elif v1a == v1b:
-            v2a = self._obtener_valor(a, param2)
-            v2b = self._obtener_valor(b, param2)
-            return v2a < v2b
+            return True #no importa el segundo parametro
         else:
             return False
 
     def infiltArriba(self, i, param1=None, param2=None):
-        if param1 is None or param2 is None:
+        if param1 is None and param2 is None:
             # Comportamiento original (por valor directo)
             while i // 2 > 0:
                 if self.lista[i] < self.lista[i // 2]:
@@ -36,7 +34,7 @@ class monticulo():
                 i = i // 2
 
     def infiltAbajo(self, i, param1=None, param2=None):
-        if param1 is None or param2 is None:
+        if param1 is None and param2 is None:
             # Comportamiento original (por valor directo)
             while (i * 2) <= self.tam:
                 hijo = i * 2
@@ -84,12 +82,26 @@ class monticulo():
     def tamano(self):
         return self.tam
     
-    def construirMonticulo(self,lista):
+    def construirMonticulo(self,lista,param1=None, param2=None):
         monticulo_nuevo = self
         for dato in lista:
-            monticulo_nuevo.insertar(dato)
+            monticulo_nuevo.insertar(dato, param1, param2)
         return monticulo_nuevo
     
+    def __in__(self, dato):
+        return dato in self.lista
+    
+    def decrementar_clave(self, dato, nuevo_valor):
+    # Busca el índice del dato y actualiza su posición
+        for i in range(1, self.tam + 1):
+            if self.lista[i] == dato:
+                # Actualiza el valor antes de reordenar
+                dato.asignar_distancia(nuevo_valor)
+                self.infiltArriba(i, "obtener_distancia", "obtenerId")
+                break
+
+    def __iter__(self):
+        return iter(self.lista[1:]) 
     
         
 if __name__ == "__main__":

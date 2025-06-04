@@ -5,6 +5,8 @@ class Vertice:
     def __init__(self,clave):
         self.id = clave
         self.conectadoA = {}
+        self.distancia = float('inf')  # Inicialmente, la distancia es infinita
+        self.predecesor = None  # Predecesor en el camino más corto
 
     def agregarVecino(self,vecino,ponderacion=0):
         self.conectadoA[vecino] = ponderacion
@@ -12,8 +14,11 @@ class Vertice:
     def __str__(self):
         return str(self.id) + ' conectadoA: ' + str([x.id for x in self.conectadoA])
 
-    def obtenerConexiones(self):
+    def obtener_adyacentes(self):
         return self.conectadoA.keys()
+    
+    def obtenerconectados(self):
+        return self.conectadoA
 
     def obtenerId(self):
         return self.id
@@ -21,6 +26,20 @@ class Vertice:
     def obtenerPonderacion(self,vecino):
         return self.conectadoA[vecino]
     
+    def asignar_distancia(self, distancia):
+        self.distancia = distancia
+
+    def obtener_distancia(self):
+        return self.distancia
+    
+    def asignar_predecesor(self, predecesor):   
+        self.predecesor = predecesor
+
+    def obtener_predecesor(self):  
+        return self.predecesor
+    
+    
+
 class Grafo:
     def __init__(self):
         self.listaVertices = {}
@@ -54,37 +73,85 @@ class Grafo:
     def __iter__(self):
         return iter(self.listaVertices.values())
 
+    def existe_vertice(self, vertice):
+        return vertice.id in [v for v in self.listaVertices]
+    
+    def obtenerAristas(self):
+        aristas = []
+        for v in self.listaVertices.values():
+            for vecino, ponderacion in v.obtenerconectados().items():
+                aristas.append((v.obtenerId(), vecino.obtenerId(), ponderacion))
+        return aristas
 
-if __name__ == "__main__":
-    g = Grafo()
-    for i in range(6):
-        g.agregarVertice(i)
-
-    g.agregarArista(0,1,5)
-    g.agregarArista(0,5,2)
-    g.agregarArista(1,2,4)
-    g.agregarArista(2,3,9)
-    g.agregarArista(3,4,7)
-    g.agregarArista(3,5,3)
-    g.agregarArista(4,0,1)
-    g.agregarArista(5,4,8)
-    g.agregarArista(5,2,1)
-    for v in g:
-        for w in v.obtenerConexiones():
-            print("( %s , %s )" % (v.obtenerId(), w.obtenerId()))
 
 def prim (G, inicio):
-    cp= monticulo()
+    cp = monticulo()
     for v in G:
-        v.asignar_distancia(sys.maxsize) #no es el costo entre vertice, es un valor infinito de referencia
-        v.asignar_prededor(None)
+        v.asignar_distancia(float("inf")) #no es el costo entre vertice, es un valor infinito de referencia
+        v.asignar_predecesor(None)
     inicio.asignar_distancia(0)
-    cp.construir_monticulo([(v.obtener_distancia(), v) for v in G])
-    while not cp.esta_vacia():
-        vertice_actual=cp.extraer_minimo()[1]
+    cp.construirMonticulo([v for v in G], param1="obtener_distancia")
+    while not cp.estavacio():
+        vertice_actual = cp.eliminarminimo(param1='obtener_distancia')
         for siguiente in vertice_actual.obtener_adyacentes():
-            nuevo_costo = vertice_actual.obtener_distancia (siguiente)
-            if cp.contiene(siguiente) and nuevo_costo < siguiente.obtener_distancia():
+            nuevo_costo = vertice_actual.obtenerPonderacion(siguiente)
+            if siguiente in cp and nuevo_costo < siguiente.obtener_distancia():
                 siguiente.asignar_distancia(nuevo_costo)
                 siguiente.asignar_predecesor(vertice_actual)
                 cp.decrementar_clave(siguiente, nuevo_costo)
+
+def distanciatotal(G):
+    total = 0
+    for v in G:
+        if v.obtener_predecesor() is not None:
+            total += v.obtener_distancia()
+    return total
+
+def predecesores_sucesores(G):
+    for v in G:
+        sucesores=[]
+        predecesor = v.obtener_predecesor()
+        for posibles_sucesores in G:
+            if posibles_sucesores.obtener_predecesor() == v:
+                posibles_sucesores = posibles_sucesores.obtenerId()
+                sucesores.append(posibles_sucesores)
+        
+        print(f"El predecesor de {v.obtenerId()} es {predecesor.obtenerId() if predecesor else None}, y sus sucesores son  {sucesores if sucesores else None}")
+               
+        
+            
+            
+            
+if __name__ == "__main__":
+    g = Grafo()
+    for i in range(0,8):
+        g.agregarVertice(i)
+
+    g.agregarArista(0,4,8)
+    g.agregarArista(4,0,8)
+    g.agregarArista(3,0,8)
+    g.agregarArista(0,3,8)
+    g.agregarArista(3,5,1)
+    g.agregarArista(5,3,1)
+    g.agregarArista(3,7,6)
+    g.agregarArista(7,3,6)
+    g.agregarArista(7,6,1)
+    g.agregarArista(6,7,1)
+    g.agregarArista(7,4,1)
+    g.agregarArista(4,7,1)
+    g.agregarArista(5,2,8)
+    g.agregarArista(2,5,8)
+    g.agregarArista(2,1,1)
+    g.agregarArista(1,2,1)
+    g.agregarArista(2,6,6)
+    g.agregarArista(6,2,6)
+
+    prim(g, g.obtenerVertice(3))
+    print("Árbol de expansión mínima:")
+    for v in g:
+        if v.obtener_predecesor() is not None:
+            print(f"{v.obtener_predecesor().obtenerId()} - {v.obtenerId()} con costo {v.obtener_distancia()}")
+
+    print(f"La distancia total es: {distanciatotal(g)}")
+
+    predecesores_sucesores(g)
