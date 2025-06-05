@@ -1,5 +1,4 @@
 from monticulo_min import monticulo
-import sys
 
 class Vertice:
     def __init__(self,clave):
@@ -107,7 +106,7 @@ def distanciatotal(G):
             total += v.obtener_distancia()
     return total
 
-def predecesores_sucesores(G):
+def predecesores_sucesores_aldeas(G):
     for v in G:
         sucesores=[]
         predecesor = v.obtener_predecesor()
@@ -115,8 +114,14 @@ def predecesores_sucesores(G):
             if posibles_sucesores.obtener_predecesor() == v:
                 posibles_sucesores = posibles_sucesores.obtenerId()
                 sucesores.append(posibles_sucesores)
-        
-        print(f"El predecesor de {v.obtenerId()} es {predecesor.obtenerId() if predecesor else None}, y sus sucesores son  {sucesores if sucesores else None}")
+        if not predecesor:
+            print(f"La aldea {v.obtenerId()} empieza el recorrido y debe enviar replicas a {', '.join(sucesores[:-1])} y {sucesores[-1]}")
+        elif len(sucesores) == 0:
+            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y no debe enviar replicas")
+        elif len(sucesores) == 1:    
+            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y debe enviar replicas a {sucesores[0]}")
+        else:
+            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y debe enviar replicas a {', '.join(sucesores[:-1])} y {sucesores[-1]}")
                
         
             
@@ -153,5 +158,3 @@ if __name__ == "__main__":
             print(f"{v.obtener_predecesor().obtenerId()} - {v.obtenerId()} con costo {v.obtener_distancia()}")
 
     print(f"La distancia total es: {distanciatotal(g)}")
-
-    predecesores_sucesores(g)
