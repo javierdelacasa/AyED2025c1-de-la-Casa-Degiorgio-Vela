@@ -33,4 +33,4 @@ for a in lista_aldeas:  # Imprime la lista de aldeas
 print('\nRecorrido de los mensajes:')
 predecesores_sucesores_aldeas(grafo_aldeas) # Imprime los predecesores y sucesores de cada vértice
 
-print(f'\nLa suma de todas las distancias recorridas por todas las palomas enviadas desde cada palomar es de {distanciatotal(grafo_aldeas)}\n')  # Imprime la distancia total del árbol de expansión mínima
+print(f'\nLa suma de todas las distancias recorridas por todas las palomas enviadas desde cada palomar es de {distanciatotal(grafo_aldeas)} leguas\n')  # Imprime la distancia total del árbol de expansión mínima
