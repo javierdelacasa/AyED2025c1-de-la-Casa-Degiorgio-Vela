@@ -1,15 +1,9 @@
-# 🐍Nombre del proyecto (darle un nombre significativo) 
+# 🐍Palomas mensajeras
 
-Breve descripción del proyecto:
-
-Ejemplo: “Este es un script en el que se comparan algoritmos de ordenamiento. Permite [describir funcionalidades principales].
+"Este es un script en el que se implementará la clase grafos, una versión alternativa del montículo de mínimos utilizado en el problema 2, y el algoritmo prim, con el fin de hallar el recorrido más eficiente para enviar mensajes desde una aldea a todas las demás en el grafo."
 
 ---
 ## 🏗Arquitectura General
-
-Explica brevemente cómo está organizado el código (funciones y/o clases)
-
-Las gráficas de los resultados están disponible en la carpeta [data](./data) del proyecto.
 
 El informe completo está disponible en la carpeta [docs](./docs) del proyecto.
 
@@ -36,8 +30,9 @@ El informe completo está disponible en la carpeta [docs](./docs) del proyecto.
 ---
 ## 🙎‍♀️🙎‍♂️Autores
 
-- Apellido y Nombre del primer integrante
-- Apellido y Nombre del primer integrante
+- de la Casa, Javier
+- Degiorgio, Eduardo
+- Vela, Santiago
 
 ---
 

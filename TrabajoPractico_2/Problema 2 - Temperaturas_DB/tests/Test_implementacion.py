@@ -39,8 +39,8 @@ db.borrar_temperatura("08/01/2023")
 db.borrar_temperatura("04/01/2023")
 
 # Se muestran las temperaturas después de borrar algunas
-print("Temperaturas después de borrar algunas:")
+print("Temperaturas después de borrar:")
 db.devolver_todas_temperaturas()
 
-# cantidad de muestras después de borrar
+# Cantidad de muestras después de borrar
 print("Cantidad de muestras después de borrar:", db.cantidad_muestras())

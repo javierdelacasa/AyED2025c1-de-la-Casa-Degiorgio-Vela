@@ -1,15 +1,9 @@
-# 🐍Nombre del proyecto (darle un nombre significativo) 
+# 🐍Temperaturas_DB
 
-Breve descripción del proyecto:
-
-Ejemplo: “Este es un script en el que se comparan algoritmos de ordenamiento. Permite [describir funcionalidades principales].
+"Este es un script en el que se implementará un árbol binario de búsqueda AVL con el fin de almacenar la temperatura que se registra en distintos días utilizando como clave la fecha de los mismos."
 
 ---
 ## 🏗Arquitectura General
-
-Explica brevemente cómo está organizado el código (funciones y/o clases)
-
-Las gráficas de los resultados están disponible en la carpeta [data](./data) del proyecto.
 
 El informe completo está disponible en la carpeta [docs](./docs) del proyecto.
 
@@ -36,8 +30,9 @@ El informe completo está disponible en la carpeta [docs](./docs) del proyecto.
 ---
 ## 🙎‍♀️🙎‍♂️Autores
 
-- Apellido y Nombre del primer integrante
-- Apellido y Nombre del primer integrante
+- de la Casa, Javier
+- Degiorgio, Eduardo
+- Vela, Santiago
 
 ---
 

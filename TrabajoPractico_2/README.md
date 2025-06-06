@@ -1,8 +1,7 @@
-# Trabajo Práctico Nº1
+# Trabajo Práctico Nº2
 
-Primer trabajo práctico de la asignatura <Algoritmos y Estructuras de Datos>.
-Este trabajo práctico consta de los siguientes N proyectos:
-  - `Nombre de proyecto 1`
-  - `Nombre de proyecto 2`
-  -  ...
-
+Segundo trabajo práctico de la asignatura <Algoritmos y Estructuras de Datos>.
+Este trabajo práctico consta de los siguientes 3 proyectos:
+  - `Problema 1 - Sala de Emergencias`
+  - `Problema 2 - Temperaturas_DB`
+  - `Problema 3 - Palomas mensajeras`
