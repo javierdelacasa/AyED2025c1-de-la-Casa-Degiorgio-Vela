@@ -115,13 +115,13 @@ def predecesores_sucesores_aldeas(G):
                 posibles_sucesores = posibles_sucesores.obtenerId()
                 sucesores.append(posibles_sucesores)
         if not predecesor:
-            print(f"La aldea {v.obtenerId()} empieza el recorrido y debe enviar replicas a {', '.join(sucesores[:-1])} y {sucesores[-1]}")
+            print(f"La aldea {v.obtenerId()} empieza el recorrido y debe enviar réplicas a {', '.join(sucesores[:-1])} y {sucesores[-1]}")
         elif len(sucesores) == 0:
-            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y no debe enviar replicas")
+            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y no debe enviar réplicas")
         elif len(sucesores) == 1:    
-            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y debe enviar replicas a {sucesores[0]}")
+            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y debe enviar réplicas a {sucesores[0]}")
         else:
-            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y debe enviar replicas a {', '.join(sucesores[:-1])} y {sucesores[-1]}")
+            print(f"La aldea {v.obtenerId()} recibe el mensaje desde {predecesor.obtenerId()} y debe enviar réplicas a {', '.join(sucesores[:-1])} y {sucesores[-1]}")
                
         
             
