@@ -1,7 +1,7 @@
 from grafo import*
 import csv
 
-with open("docs/aldeas.txt", "r", encoding="utf-8") as archivo: #Abrimos el archivo de aldeas y volcamos su contenido en una lista
+with open("data/aldeas.txt", "r", encoding="utf-8") as archivo: #Abrimos el archivo de aldeas y volcamos su contenido en una lista
     lector = csv.reader(archivo)
     datos = []
     for fila in lector:

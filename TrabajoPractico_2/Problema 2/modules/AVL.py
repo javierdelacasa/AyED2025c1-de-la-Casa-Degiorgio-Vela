@@ -19,6 +19,9 @@ class Nodo:
     def tieneHijoDerecho(self):   
         return self.hijoDerecho is not None
     
+    def tieneAlgunHijo(self):
+        return self.tieneHijoIzquierdo() or self.tieneHijoDerecho()
+    
     def esRaiz(self):
         return self.padre is None
     

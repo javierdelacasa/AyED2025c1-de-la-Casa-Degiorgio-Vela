@@ -1,4 +1,4 @@
-from AVL import Arbol
+from modules.AVL import Arbol
 import datetime
 
 class Temperatura_DB():
@@ -58,38 +58,7 @@ class Temperatura_DB():
         self.arbol.eliminar(fecha)
     
 
-if __name__ == "__main__":
-    db = Temperatura_DB()
-    db.guardar_temperatura(25.5, "29/02/2020")
-    db.guardar_temperatura(27.8, "10/01/2023")
-    db.guardar_temperatura(30.2, "03/01/2023")
-    db.guardar_temperatura(22.1, "04/01/1964")
-    db.guardar_temperatura(24.0, "05/01/2023")
-    db.guardar_temperatura(26.5, "24/01/2023")
-    db.guardar_temperatura(28.3, "07/01/2023")
-    db.guardar_temperatura(29.9, "08/01/2023")
-    db.guardar_temperatura(23.4, "09/01/2023")
-    db.guardar_temperatura(21.0, "10/09/2023")
-    print("Temperaturas guardadas:")
-    db.devolver_todas_temperaturas()
 
-    print("Temperatura en fecha específica:", db.devolver_temperatura("08/01/2023"))
-    fecha_inicio = "04/01/2023"
-    fecha_fin = "09/02/2023"
-    print("Temperatura máxima en rango:", db.max_temp_rango(fecha_inicio, fecha_fin))
-    print("Temperatura mínima en rango:", db.min_temp_rango(fecha_inicio, fecha_fin))
-    print("Temperaturas extremas en rango:", db.temp_extemos_rango(fecha_inicio, fecha_fin))
-    print("Cantidad de muestras:", db.cantidad_muestras())
-
-    print("Temperaturas en rango:")
-    db.devolver_temperaturas(fecha_inicio, fecha_fin)
-
-    db.borrar_temperatura("08/01/2023")
-    db.borrar_temperatura("04/01/1964")
-    print("Temperaturas después de borrar algunas:")
-    db.devolver_todas_temperaturas()
-
-    
 
 
 

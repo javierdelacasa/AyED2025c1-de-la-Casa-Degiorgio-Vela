@@ -16,7 +16,7 @@ class monticulo():
         if v1a < v1b:
             return True
         elif v1a == v1b:
-            return True #no importa el segundo parametro
+            return True #No importa el segundo parametro
         else:
             return False
 
