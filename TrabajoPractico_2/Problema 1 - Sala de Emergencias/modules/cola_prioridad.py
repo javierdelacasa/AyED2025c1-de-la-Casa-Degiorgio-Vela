@@ -1,24 +1,23 @@
 from monticulo_min import monticulo
-from paciente import Paciente
 
 
 class ColaPrioridad(monticulo):
     def __init__(self):
         self.mont = monticulo()
     
-    def llegada_de_paciente(self, paciente, param1= 'get_riesgo', param2= 'get_llegada'):
-        self.mont.insertar(paciente, param1, param2)
+    def entrada(self, dato, param1=None, param2=None):
+        self.mont.insertar(dato, param1, param2)
 
-    def atender_paciente(self, param1= 'get_riesgo', param2= 'get_llegada'):
+    def salida(self, param1=None, param2=None):
         return self.mont.eliminarminimo(param1, param2)
 
-    def paciente_al_frente(self):
+    def frente(self):
         return self.mont.buscarminimo()
 
-    def pacientes_en_cola(self):
+    def tamano(self):
         return self.mont.tamano()
     
-    def mostrar_pacientes(self):
+    def mostrar_elementos(self):
         for i in range(1, self.tamano()):
             print(self.mont.lista[i])
 
