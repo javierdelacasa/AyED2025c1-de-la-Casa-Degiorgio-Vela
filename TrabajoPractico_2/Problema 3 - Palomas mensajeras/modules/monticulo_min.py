@@ -16,26 +16,26 @@ class monticulo():
         if v1a < v1b:
             return True
         elif v1a == v1b:
-            return True #No importa el segundo parametro
+            return True # Para prim no importa el segundo parámetro
         else:
             return False
 
     def infiltArriba(self, i, param1=None, param2=None):
-        if param1 is None and param2 is None:
-            # Comportamiento original (por valor directo)
+        if param1 is None and param2 is None: # Se usa 'and' para permitir usar un solo parametro
+            # Comportamiento original
             while i // 2 > 0:
                 if self.lista[i] < self.lista[i // 2]:
                     self.lista[i], self.lista[i // 2] = self.lista[i // 2], self.lista[i]
                 i = i // 2
         else:
-            while i // 2 > 0:
-                if self._comparar(self.lista[i], self.lista[i // 2], param1, param2):
-                    self.lista[i], self.lista[i // 2] = self.lista[i // 2], self.lista[i]
-                i = i // 2
+            while i // 2 > 0: # Mientras el elemento no sea la raíz
+                if self._comparar(self.lista[i], self.lista[i // 2], param1, param2): # Llama a la función de comparación
+                    self.lista[i], self.lista[i // 2] = self.lista[i // 2], self.lista[i] # Intercambia el elemento con su padre
+                i = i // 2 # Actualiza el índice a su nueva posición
 
     def infiltAbajo(self, i, param1=None, param2=None):
-        if param1 is None and param2 is None:
-            # Comportamiento original (por valor directo)
+        if param1 is None and param2 is None: # Se usa 'and' para permitir usar un solo parametro
+            # Comportamiento original
             while (i * 2) <= self.tam:
                 hijo = i * 2
                 if hijo + 1 <= self.tam and self.lista[hijo + 1] < self.lista[hijo]:
@@ -46,12 +46,12 @@ class monticulo():
                 else:
                     break
         else:
-            while (i * 2) <= self.tam:
+            while (i * 2) <= self.tam: # Mientras el elemento no sea una hoja
                 hijo = i * 2
-                if hijo + 1 <= self.tam and self._comparar(self.lista[hijo + 1], self.lista[hijo], param1, param2):
-                    hijo = hijo + 1
+                if hijo + 1 <= self.tam and self._comparar(self.lista[hijo + 1], self.lista[hijo], param1, param2): # Comprueba si el hijo derecho existe y es menor que el hijo izquierdo
+                    hijo = hijo + 1 # Si es así, se actualiza el índice del hijo al derecho
                 if self._comparar(self.lista[hijo], self.lista[i], param1, param2):
-                    self.lista[i], self.lista[hijo] = self.lista[hijo], self.lista[i]
+                    self.lista[i], self.lista[hijo] = self.lista[hijo], self.lista[i] # Intercambia el elemento con su hijo
                     i = hijo
                 else:
                     break
@@ -91,13 +91,13 @@ class monticulo():
     def __in__(self, dato):
         return dato in self.lista
     
-    def decrementar_clave(self, dato, nuevo_valor):
-    # Busca el índice del dato y actualiza su posición
+    def decrementar_clave(self, dato, nuevo_valor): # Para vertices de grafos y prim
+    # Busca el índice del dato
         for i in range(1, self.tam + 1):
             if self.lista[i] == dato:
-                # Actualiza el valor antes de reordenar
+                # Actualiza la distancia del vertice
                 dato.asignar_distancia(nuevo_valor)
-                self.infiltArriba(i, "obtener_distancia", "obtenerId")
+                self.infiltArriba(i, "obtener_distancia", "obtenerId") # Infiltra hacia arriba el vertice
                 break
 
     def __iter__(self):
