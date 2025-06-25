@@ -22,13 +22,13 @@ for i in range(n):
 
     # Atención de paciente en este ciclo: en el 50% de los casos
     if random.random() < 0.5:
-        # se atiende paciente que se encuentra al frente de la cola
-        paciente_atendido = cola_de_espera.salida(param1= 'get_riesgo', param2= 'get_llegada')
+        # Se atiende paciente que se encuentra al frente de la cola
+        paciente_atendido = cola_de_espera.salida(param1= 'get_riesgo', param2= 'get_llegada') 
         print('*'*40)
         print('Se atiende el paciente:', paciente_atendido)
         print('*'*40)
     else:
-        # se continúa atendiendo paciente de ciclo anterior
+        # Se continúa atendiendo paciente de ciclo anterior
         pass
     
     print()
@@ -41,9 +41,9 @@ for i in range(n):
     print()
     print('-*-'*15)
     
-    time.sleep(1)
+    time.sleep(1) # Espera de 1 segundo entre ciclos
 
-#atender a los pacientes restantes
+# Al finalizar el ciclo, se atiende a los pacientes restantes
 print('Atendiendo pacientes restantes...')
 while len(cola_de_espera) > 0:
     paciente_atendido = cola_de_espera.salida(param1= 'get_riesgo', param2= 'get_llegada')

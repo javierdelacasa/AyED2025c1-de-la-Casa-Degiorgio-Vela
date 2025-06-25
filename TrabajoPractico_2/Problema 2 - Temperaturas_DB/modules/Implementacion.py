@@ -3,9 +3,9 @@ import datetime
 
 class Temperatura_DB():
     def __init__(self):
-        self.arbol = Arbol() #crea un arbol AVL para almacenar las temperaturas
+        self.arbol = Arbol() # Crea un arbol AVL para almacenar las temperaturas
     
-    def convertir_fecha(self, fechastr): #convierte una fecha en formato string a un objeto datetime
+    def convertir_fecha(self, fechastr): # Convierte una fecha en formato string a un objeto datetime
         if isinstance(fechastr, str):
             fecha = datetime.datetime.strptime(fechastr, "%d/%m/%Y")
             return fecha
@@ -16,29 +16,29 @@ class Temperatura_DB():
         elif isinstance(fechastr, datetime.datetime): # Si se proporciona un objeto datetime, se convierte a string
             fechastr = fechastr.strftime("%d/%m/%Y")
         fecha = self.convertir_fecha(fechastr) 
-        self.arbol.agregar(fecha, temperatura) #agrega al arbol con la fecha como clave
+        self.arbol.agregar(fecha, temperatura) # Agrega al arbol con la fecha como clave
 
     def devolver_temperatura(self, fechastr):
-        fecha = self.convertir_fecha(fechastr) #convierte la fecha a datetime
+        fecha = self.convertir_fecha(fechastr) # Convierte la fecha a datetime
         return self.arbol.obtener(fecha)
     
     def max_temp_rango(self, fecha_iniciostr, fecha_finstr):
         fecha_inicio = self.convertir_fecha(fecha_iniciostr)
         fecha_fin = self.convertir_fecha(fecha_finstr)
 
-        return self.arbol.obtenermaximo_rango(fecha_inicio, fecha_fin)[1] #devuelve la carga util de la tupla obtenida
+        return self.arbol.obtenermaximo_rango(fecha_inicio, fecha_fin)[1] # Devuelve la carga util de la tupla obtenida
     
     def min_temp_rango(self, fecha_iniciostr, fecha_finstr):
         fecha_inicio = self.convertir_fecha(fecha_iniciostr)
         fecha_fin = self.convertir_fecha(fecha_finstr)
 
-        return self.arbol.obtenerminimo_rango(fecha_inicio, fecha_fin)[1] #devuelve la carga util de la tupla obtenida
+        return self.arbol.obtenerminimo_rango(fecha_inicio, fecha_fin)[1] # Devuelve la carga util de la tupla obtenida
     
     def temp_extemos_rango(self, fecha_iniciostr, fecha_finstr):
         fecha_inicio = self.convertir_fecha(fecha_iniciostr)
         fecha_fin = self.convertir_fecha(fecha_finstr)
 
-        # utiliza las funciones max_temp_rango y min_temp_rango
+        # Utiliza las funciones max_temp_rango y min_temp_rango
         max_temp = self.arbol.obtenermaximo_rango(fecha_inicio, fecha_fin)[1]
         min_temp = self.arbol.obtenerminimo_rango(fecha_inicio, fecha_fin)[1]
         return (max_temp, min_temp)

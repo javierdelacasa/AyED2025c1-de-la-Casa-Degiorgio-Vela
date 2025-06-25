@@ -14,10 +14,13 @@ probabilidades = [0.1, 0.3, 0.6]
 class Paciente:
     def __init__(self):
         n = len(nombres)
+        # Selecciona un nombre y apellido aleatorio
         self.__nombre = nombres[randint(0, n-1)]
         self.__apellido = apellidos[randint(0, n-1)]
+        # Selecciona un nivel de riesgo y su descripción
         self.__riesgo = choices(niveles_de_riesgo, probabilidades)[0]
         self.__descripcion = descripciones_de_riesgo[self.__riesgo-1]
+        # Registra la fecha y hora de llegada actual de la computadora
         self.__llegada = datetime.now()
 
     def get_nombre(self):
