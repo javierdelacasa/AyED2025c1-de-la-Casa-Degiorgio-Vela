@@ -18,8 +18,8 @@ for fila in datos: # Recorre cada fila de datos y agrega las aristas al grafo (s
 
 lista_aldeas = [] # Crea una lista para almacenar los nombres de las aldeas
 for v in grafo_aldeas:
-    lista_aldeas.append(v.id) # añade el nombre de cada aldea a la lista y ordena alfabéticamente
-lista_aldeas = sorted(lista_aldeas)
+    lista_aldeas.append(v.id) # Añade el nombre de cada aldea a la lista
+lista_aldeas = sorted(lista_aldeas) # Ordena alfabéticamente
 
 prim(grafo_aldeas, grafo_aldeas.obtenerVertice("Peligros"))  # Inicia el algoritmo Prim desde la aldea "Peligros"
 

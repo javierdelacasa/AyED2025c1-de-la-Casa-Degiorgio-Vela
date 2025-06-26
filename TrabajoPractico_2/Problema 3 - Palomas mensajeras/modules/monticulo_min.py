@@ -1,6 +1,6 @@
 class monticulo():
     def __init__(self):
-        self.lista = [None]
+        self.lista = [None] # El primer elemento es None para facilitar el manejo de índices
         self.tam = 0
     
     def _obtener_valor(self, elem, param):

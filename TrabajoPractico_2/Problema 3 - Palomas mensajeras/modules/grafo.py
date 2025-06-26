@@ -15,10 +15,10 @@ class Vertice:
         return str(self.id) + ' conectadoA: ' + str([x.id for x in self.conectadoA]) # Representacion del vertice en string
 
     def obtener_adyacentes(self):
-        return self.conectadoA.keys() # Devuelve las claves de los vecinos
+        return self.conectadoA.keys() # Devuelve los vertices vecinos
     
     def obtenerconectados(self):
-        return self.conectadoA # Devuelve el diccionario conectadoA (claves y ponderaciones de los vecinos)
+        return self.conectadoA # Devuelve el diccionario conectadoA (vertices vecinos y sus ponderaciones)
 
     def obtenerId(self):
         return self.id # Clave del vertice
@@ -51,13 +51,13 @@ class Grafo:
         self.listaVertices[clave] = nuevoVertice # Lo agrega al diccionario de vertices
         return nuevoVertice
 
-    def obtenerVertice(self,n):
+    def obtenerVertice(self,n): # Ingresando una clave n
         if n in self.listaVertices:
             return self.listaVertices[n]
         else:
             return None
 
-    def __contains__(self,n): # Para usar "if n in grafo"
+    def __contains__(self,n): # Para usar "n in grafo"
         return n in self.listaVertices 
 
     def agregarArista(self,de,a,costo=0):
@@ -69,7 +69,7 @@ class Grafo:
         self.listaVertices[de].agregarVecino(self.listaVertices[a], costo)
 
     def obtenerVertices(self):
-        return self.listaVertices.keys()
+        return self.listaVertices.keys()  # Devuelve las claves de los vertices del grafo
 
     def __iter__(self): # Permite iterar sobre los vertices del grafo
         return iter(self.listaVertices.values())
@@ -114,7 +114,7 @@ def predecesores_sucesores_aldeas(G): # Imprime los predecesores y sucesores de 
     for v in G: # Itera sobre los vertices del grafo
         sucesores=[]
         predecesor = v.obtener_predecesor()
-        for posibles_sucesores in G: # Itera sobre los vecinos
+        for posibles_sucesores in G: # Itera sobre todos los vertices
             if posibles_sucesores.obtener_predecesor() == v: # Confirma si es el sucesor
                 posibles_sucesores = posibles_sucesores.obtenerId()
                 sucesores.append(posibles_sucesores) # Agrega la clave del sucesor a la lista
@@ -163,3 +163,4 @@ if __name__ == "__main__":
             print(f"{v.obtener_predecesor().obtenerId()} - {v.obtenerId()} con costo {v.obtener_distancia()}")
 
     print(f"La distancia total es: {distanciatotal(g)}")
+    print(g.obtenerVertices())
