@@ -25,11 +25,11 @@ class Nodo:
     def esRaiz(self):
         return self.padre is None
     
-    def _obtenermaximo(self): # Funcion auxiliar de obtenermaximo
+    def _obtenermaximo(self): # Funcion auxiliar de obtenermaximo del AVL
         cargautil_max = self.cargautil
         clave_max = self.clave
         # Actua de manera recursiva
-        # Compara las caragas utiles con los hijos y se guarda la mayor
+        # Compara las cargas utiles con los hijos y se guarda la mayor
         if self.tieneHijoIzquierdo():
             hijo_clave_max, hijo_cargautil_max = self.hijoIzquierdo._obtenermaximo()
             if hijo_cargautil_max > cargautil_max: # Se guarda la carga util mayor
@@ -42,7 +42,7 @@ class Nodo:
                 clave_max = hijo_clave_max
         return clave_max, cargautil_max # Clave asociada a la carga util maxima y carga util maxima
 
-    def _obtenerminimo(self): # Funcion auxiliar de obtenerminimo
+    def _obtenerminimo(self): # Funcion auxiliar de obtenerminimo del AVL
         cargautil_min = self.cargautil
         clave_min = self.clave
         # Actua de manera recursiva
@@ -93,7 +93,7 @@ class Nodo:
 
         return clave_max, cargautil_max
     
-    def preorden(self): # Funcion auxiliar de preorden_visualizacion
+    def preorden(self): # Funcion auxiliar de preorden_visualizacion del AVL
         print(self.clave) # imprime la clave del nodo
         # Actua recursivamente en cada hijo
         if self.hijoIzquierdo:
@@ -101,7 +101,7 @@ class Nodo:
         if self.hijoDerecho:
             self.hijoDerecho.preorden()
     
-    def preorden_rango(self, inicio, fin): # Funcion auxiliar de preorden_rango_visualizacion
+    def preorden_rango(self, inicio, fin): # Funcion auxiliar de preorden_rango_visualizacion del AVL
         # Verifica si la clave del nodo actual está dentro del rango
         if inicio <= self.clave <= fin:
             print(self.clave)
@@ -111,7 +111,7 @@ class Nodo:
         if self.tieneHijoDerecho() and self.clave < fin:
             self.hijoDerecho.preorden_rango(inicio, fin)
  
-    def preorden_obtencion(self): # Funcion auxiliar de preorden_obtencion
+    def preorden_obtencion(self): # Funcion auxiliar de preorden_obtencion del AVL
         print(self.cargautil) # Imprime la carga util del nodo
         if self.hijoIzquierdo:
             self.hijoIzquierdo.preorden_obtencion()
@@ -278,14 +278,14 @@ class Arbol:
     def reequilibrar(self,nodo): # Realiza las rotaciones que correspondan
         if nodo.factorEquilibrio < 0:
                 if nodo.hijoDerecho.factorEquilibrio > 0:
-                    # Rotacion doble ID
+                    # Rotacion doble DI
                     self.rotarDerecha(nodo.hijoDerecho)
                     self.rotarIzquierda(nodo)
                 else:
                     self.rotarIzquierda(nodo)
         elif nodo.factorEquilibrio > 0:
                 if nodo.hijoIzquierdo.factorEquilibrio < 0:
-                    # Rotacion doble DI
+                    # Rotacion doble ID
                     self.rotarIzquierda(nodo.hijoIzquierdo)
                     self.rotarDerecha(nodo)
                 else:

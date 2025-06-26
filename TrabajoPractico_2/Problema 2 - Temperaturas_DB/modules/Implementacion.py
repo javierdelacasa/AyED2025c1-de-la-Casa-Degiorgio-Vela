@@ -38,7 +38,7 @@ class Temperatura_DB():
         fecha_inicio = self.convertir_fecha(fecha_iniciostr)
         fecha_fin = self.convertir_fecha(fecha_finstr)
 
-        # Utiliza las funciones max_temp_rango y min_temp_rango
+        # Utiliza las funciones obtenermaximo_rango y obtenerminimo_rango del arbol AVL
         max_temp = self.arbol.obtenermaximo_rango(fecha_inicio, fecha_fin)[1]
         min_temp = self.arbol.obtenerminimo_rango(fecha_inicio, fecha_fin)[1]
         return (max_temp, min_temp)
