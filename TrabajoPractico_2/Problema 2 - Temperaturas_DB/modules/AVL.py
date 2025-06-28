@@ -240,38 +240,40 @@ class Arbol:
                     self.actualizarEquilibrio(nodo.padre)
 
     def rotarIzquierda(self,rotRaiz):
-        nuevaRaiz = rotRaiz.hijoDerecho
-        rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo
+        nuevaRaiz = rotRaiz.hijoDerecho # La nueva raiz es el hijo derecho de la raiz de rot.
+        rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo # Hijo der de la raiz de rot. ahora es el hijo der de la nueva raiz
         if nuevaRaiz.hijoIzquierdo != None:
             nuevaRaiz.hijoIzquierdo.padre = rotRaiz
-        nuevaRaiz.padre = rotRaiz.padre
+        nuevaRaiz.padre = rotRaiz.padre # La nueva raiz toma el lugar de la raiz de rot.
         if rotRaiz.esRaiz():
-            self.raiz = nuevaRaiz
-        else:
+            self.raiz = nuevaRaiz # Si era raiz del arbol se asigna la nueva
+        else: # De lo contrario se actualiza la referencia en el padre
             if rotRaiz.esHijoIzquierdo():
                 rotRaiz.padre.hijoIzquierdo = nuevaRaiz
             else:
                 rotRaiz.padre.hijoDerecho = nuevaRaiz
-        nuevaRaiz.hijoIzquierdo = rotRaiz
+        nuevaRaiz.hijoIzquierdo = rotRaiz # La raiz de rot. se posiciona como hijo izq de la nueva raiz
         rotRaiz.padre = nuevaRaiz
+        # Se actualizan los factores de equilibrio
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio + 1 - min(nuevaRaiz.factorEquilibrio, 0)
         nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
 
     def rotarDerecha(self,rotRaiz):
-        nuevaRaiz = rotRaiz.hijoIzquierdo
-        rotRaiz.hijoIzquierdo = nuevaRaiz.hijoDerecho
+        nuevaRaiz = rotRaiz.hijoIzquierdo # La nueva raiz es el hijo izquierdo d la raiz de rot.
+        rotRaiz.hijoIzquierdo = nuevaRaiz.hijoDerecho # Hijo izq de la raiz de rot. ahora es el hijo derecho de la nueva raiz
         if nuevaRaiz.hijoDerecho != None:
             nuevaRaiz.hijoDerecho.padre = rotRaiz
-        nuevaRaiz.padre = rotRaiz.padre
+        nuevaRaiz.padre = rotRaiz.padre # La nueva raiz toma el lugar de la raiz de rot.
         if rotRaiz.esRaiz():
-            self.raiz = nuevaRaiz
-        else:
+            self.raiz = nuevaRaiz # Si era raiz del arbol se asigna la nueva
+        else: # De lo contrario se actualiza la referencia en el padre
             if rotRaiz.esHijoIzquierdo():
                     rotRaiz.padre.hijoIzquierdo = nuevaRaiz
             else:
                 rotRaiz.padre.hijoDerecho = nuevaRaiz
-        nuevaRaiz.hijoDerecho = rotRaiz
-        rotRaiz.padre = nuevaRaiz
+        nuevaRaiz.hijoDerecho = rotRaiz # La raiz de rot. se posiciona como hijo der de la nueva raiz
+        rotRaiz.padre = nuevaRaiz 
+        # Se actualizan los factores de equilibrio
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio - 1 - max(nuevaRaiz.factorEquilibrio, 0)
         nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio - 1 + min(rotRaiz.factorEquilibrio, 0)
 
