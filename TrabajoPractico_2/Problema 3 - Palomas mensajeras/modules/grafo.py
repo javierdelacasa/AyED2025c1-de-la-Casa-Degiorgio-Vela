@@ -29,7 +29,7 @@ class Vertice:
     def asignar_distancia(self, distancia):
         self.distancia = distancia
 
-    def obtener_distancia(self):
+    def obtener_distancia(self): #Una vez expresado el arbol de expansion minima, devuelve la distancia al predecesor
         return self.distancia
     
     def asignar_predecesor(self, predecesor):   
@@ -85,7 +85,8 @@ class Grafo:
         return aristas
 
 
-def prim (G, inicio):
+def prim (G, inicio): # Algoritmo de Prim para encontrar el árbol de expansión mínima
+    #Orden de complejidad O((V+E) log V) donde E es el número de aristas y V el número de vertices
     cp = monticulo() # Usa un monticulo de minima como estructura auxiliar
     for v in G:
         # Se inicializan los vertices con distancia infinita y sin predecesor

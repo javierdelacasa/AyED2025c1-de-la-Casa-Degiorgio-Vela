@@ -9,7 +9,7 @@ class monticulo():
         self.infiltArriba(self.tam, param1, param2) # Infiltra el elemento desde el final de la lista hasta su posición
 
     def infiltArriba(self, i, param1=None, param2=None):
-        if param1 is None or param2 is None: # Comportamiento original (por valor directo)
+        if param1 is None and param2 is None: # Comportamiento original (por valor directo)
             while i // 2 > 0: # Comprueba si el elemento no es raíz
                 if self.lista[i] < self.lista[i // 2]: # Si es menor al padre
                     self.lista[i], self.lista[i // 2] = self.lista[i // 2], self.lista[i] # Intercambia el elemento con su padre
@@ -49,7 +49,7 @@ class monticulo():
         return minimo # Retorna el mínimo eliminado
 
     def infiltAbajo(self, i, param1=None, param2=None): 
-        if param1 is None or param2 is None: # Comportamiento original (por valor directo)
+        if param1 is None and param2 is None: # Comportamiento original (por valor directo)
             while (i * 2) <= self.tam: # Mientras el elemento actual no sea hoja
                 hijo = i * 2 # Calcula el índice del hijo izquierdo
                 if hijo + 1 <= self.tam and self.lista[hijo + 1] < self.lista[hijo]: # Comprueba si el hijo derecho existe y es menor que el hijo izquierdo
@@ -59,7 +59,6 @@ class monticulo():
                     i = hijo # Actualiza el índice a su nueva posición
                 else:
                     break # Se detiene el proceso (el elemento ya está en su posición)
-
         else: # Comportamiento modificado (basandose en los parametros especificados)
             while (i * 2) <= self.tam: # Mientras el elemeto actual no sea hoja
                 hijo = i * 2 # Calcula el índice del hijo izquierdo

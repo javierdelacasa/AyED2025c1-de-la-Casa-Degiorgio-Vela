@@ -25,6 +25,13 @@ class Nodo:
     def esRaiz(self):
         return self.padre is None
     
+    def esHoja(self):
+        return not self.tieneHijoIzquierdo() and not self.tieneHijoDerecho()
+    
+    def tieneAmbosHijos(self):
+        return self.tieneHijoIzquierdo() and self.tieneHijoDerecho()
+    
+    # Funciones auxiliares del árbol
     def _obtenermaximo(self): # Funcion auxiliar de obtenermaximo del AVL
         cargautil_max = self.cargautil
         clave_max = self.clave
@@ -126,12 +133,6 @@ class Nodo:
             self.hijoIzquierdo.preorden_rango_obtencion(inicio, fin)
         if self.tieneHijoDerecho() and self.clave < fin:
             self.hijoDerecho.preorden_rango_obtencion(inicio, fin)
-
-    def esHoja(self):
-        return not self.tieneHijoIzquierdo() and not self.tieneHijoDerecho()
-    
-    def tieneAmbosHijos(self):
-        return self.tieneHijoIzquierdo() and self.tieneHijoDerecho()
     
     def reemplazarDatoDeNodo(self, clave, valor, hijoIzquierdo, hijoDerecho): 
         self.clave = clave
@@ -202,7 +203,7 @@ class Arbol:
         return self.tamano
 
     def __iter__(self):
-        return self.raiz.__iter__() ######
+        return self.raiz.__iter__() # Llama a la función auxiliar __iter__ del nodo raíz
     
     def agregar(self,clave,valor):
         if self.raiz:
@@ -239,21 +240,37 @@ class Arbol:
             if nodo.padre.factorEquilibrio != 0:
                     self.actualizarEquilibrio(nodo.padre)
 
+    def reequilibrar(self,nodo): # Realiza las rotaciones que correspondan
+            if nodo.factorEquilibrio < 0:
+                    if nodo.hijoDerecho.factorEquilibrio > 0:
+                        # Rotacion doble DI
+                        self.rotarDerecha(nodo.hijoDerecho)
+                        self.rotarIzquierda(nodo)
+                    else:
+                        self.rotarIzquierda(nodo)
+            elif nodo.factorEquilibrio > 0:
+                    if nodo.hijoIzquierdo.factorEquilibrio < 0:
+                        # Rotacion doble ID
+                        self.rotarIzquierda(nodo.hijoIzquierdo)
+                        self.rotarDerecha(nodo)
+                    else:
+                        self.rotarDerecha(nodo)
+
     def rotarIzquierda(self,rotRaiz):
-        nuevaRaiz = rotRaiz.hijoDerecho
-        rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo
-        if nuevaRaiz.hijoIzquierdo != None:
-            nuevaRaiz.hijoIzquierdo.padre = rotRaiz
-        nuevaRaiz.padre = rotRaiz.padre
-        if rotRaiz.esRaiz():
-            self.raiz = nuevaRaiz
+        nuevaRaiz = rotRaiz.hijoDerecho #  El hijo derecho se convierte en la nueva raíz
+        rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo # El hijo izquierdo de la nueva raíz se convierte en el hijo derecho del nodo a rotar
+        if nuevaRaiz.hijoIzquierdo != None: 
+            nuevaRaiz.hijoIzquierdo.padre = rotRaiz # Si el hijo izquierdo de la nueva raíz no es None, se actualiza su padre (el nodo a rotar)
+        nuevaRaiz.padre = rotRaiz.padre # El padre de la nueva raíz es el ex-padre del nodo a rotar
+        if rotRaiz.esRaiz(): 
+            self.raiz = nuevaRaiz # Si el nodo a rotar es la raíz, se actualiza la raíz del árbol
         else:
             if rotRaiz.esHijoIzquierdo():
-                rotRaiz.padre.hijoIzquierdo = nuevaRaiz
+                rotRaiz.padre.hijoIzquierdo = nuevaRaiz # Si el nodo a rotar es hijo izquierdo, se actualiza el hijo izquierdo del padre
             else:
                 rotRaiz.padre.hijoDerecho = nuevaRaiz
-        nuevaRaiz.hijoIzquierdo = rotRaiz
-        rotRaiz.padre = nuevaRaiz
+        nuevaRaiz.hijoIzquierdo = rotRaiz # El nodo a rotar se convierte en el hijo izquierdo de la nueva raíz
+        rotRaiz.padre = nuevaRaiz # El padre del nodo a rotar ahora es la nueva raíz
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio + 1 - min(nuevaRaiz.factorEquilibrio, 0)
         nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
 
@@ -275,23 +292,7 @@ class Arbol:
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio - 1 - max(nuevaRaiz.factorEquilibrio, 0)
         nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio - 1 + min(rotRaiz.factorEquilibrio, 0)
 
-    def reequilibrar(self,nodo): # Realiza las rotaciones que correspondan
-        if nodo.factorEquilibrio < 0:
-                if nodo.hijoDerecho.factorEquilibrio > 0:
-                    # Rotacion doble DI
-                    self.rotarDerecha(nodo.hijoDerecho)
-                    self.rotarIzquierda(nodo)
-                else:
-                    self.rotarIzquierda(nodo)
-        elif nodo.factorEquilibrio > 0:
-                if nodo.hijoIzquierdo.factorEquilibrio < 0:
-                    # Rotacion doble ID
-                    self.rotarIzquierda(nodo.hijoIzquierdo)
-                    self.rotarDerecha(nodo)
-                else:
-                    self.rotarDerecha(nodo)
-
-    def obtener(self, clave):
+    def obtener(self, clave): # Recorre el árbol para buscar la clave en forma de pre-orden
         actual = self.raiz
         while True:
             if actual.clave == clave: # Comprueba en cada nodo si la clave es la buscada
@@ -351,6 +352,21 @@ class Arbol:
         else:
             print("El árbol está vacío.")
 
+    def eliminar(self,clave):
+        if self.tamano > 1:
+            nodoAEliminar = self._obtener(clave, self.raiz) # Busca el nodo a eliminar
+            if nodoAEliminar:
+                self.remover(nodoAEliminar) # Llama a la funcion auxiliar de remover
+                self.tamano = self.tamano-1
+            else:
+                raise KeyError('Error, la clave no está en el árbol')
+        elif self.tamano == 1 and self.raiz.clave == clave: # Si es el único nodo, se elimina la raíz
+            self.raiz = None
+            self.tamano = self.tamano - 1
+        else:
+            raise KeyError('Error, la clave no está en el árbol')
+        self.reequilibrar(nodoAEliminar) # Reequilibra el árbol después de eliminar un nodo
+
     def remover (self,nodoActual):
         if nodoActual.esHoja(): # Si es hoja, simplemente se elimina
             if nodoActual == nodoActual.padre.hijoIzquierdo:
@@ -390,28 +406,12 @@ class Arbol:
                                         nodoActual.hijoDerecho.cargautil,
                                         nodoActual.hijoDerecho.hijoIzquierdo,
                                 nodoActual.hijoDerecho.hijoDerecho)    
-                    
-    def eliminar(self,clave):
-        if self.tamano > 1:
-            nodoAEliminar = self._obtener(clave, self.raiz) # Busca el nodo a eliminar
-            if nodoAEliminar:
-                self.remover(nodoAEliminar) # Llama a la funcion auxiliar de remover
-                self.tamano = self.tamano-1
-            else:
-                raise KeyError('Error, la clave no está en el árbol')
-        elif self.tamano == 1 and self.raiz.clave == clave: # Si es el único nodo, se elimina la raíz
-            self.raiz = None
-            self.tamano = self.tamano - 1
-        else:
-            raise KeyError('Error, la clave no está en el árbol')
-        self.reequilibrar(nodoAEliminar) # Reequilibra el árbol después de eliminar un nodo
 
     def __delitem__(self,clave):
         self.eliminar(clave)
 
-    def _obtener(self, clave, nodoActual):
-        # Función auxiliar de obtener
-        # Busca el nodo con la clave dada, recursivamente
+    def _obtener(self, clave, nodoActual): # Función auxiliar de obtener
+        # Busca el nodo con la clave dada, recursivamente, retorna la clave
         if nodoActual is None:
             return None
         if nodoActual.clave == clave:

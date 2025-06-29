@@ -93,6 +93,7 @@ class monticulo():
     
     def decrementar_clave(self, dato, nuevo_valor): # Para vertices de grafos y prim
     # Busca el índice del dato
+    # Cambia el valor de distancia de un vertice a nuevo_vertice
         for i in range(1, self.tam + 1):
             if self.lista[i] == dato:
                 # Actualiza la distancia del vertice
