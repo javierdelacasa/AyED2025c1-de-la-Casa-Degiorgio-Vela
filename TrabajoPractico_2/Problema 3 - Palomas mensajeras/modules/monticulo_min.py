@@ -82,11 +82,13 @@ class monticulo():
     def tamano(self):
         return self.tam
     
-    def construirMonticulo(self,lista,param1=None, param2=None):
-        monticulo_nuevo = self
-        for dato in lista:
-            monticulo_nuevo.insertar(dato, param1, param2)
-        return monticulo_nuevo
+    def construirMonticulo(self, unaLista): # Crea un montículo a partir de una lista de elementos
+        i = len(unaLista) // 2
+        self.tam = len(unaLista)
+        self.lista = [None] + unaLista[:]
+        while (i > 0):
+            self.infiltAbajo(i)
+            i = i - 1
     
     def __in__(self, dato):
         return dato in self.lista
@@ -106,16 +108,20 @@ class monticulo():
     
         
 if __name__ == "__main__":
-    monticulo = monticulo()
-    monticulo.insertar(5)
-    monticulo.insertar(3)
-    monticulo.insertar(8)
-    monticulo.insertar(1)
-    monticulo.insertar(4)
-    print(monticulo.lista)  # Output: [None, 1, 3, 4, 5, 8]
-    print(monticulo.buscarminimo())  # Output: 1
-    monticulo.eliminarminimo()
-    print(monticulo.lista)  # Output: [None, 3, 4, 5, 8]
-    monticulo_nuevo = monticulo.construirMonticulo([7, 2, 6, 4, 1])
-    print(monticulo_nuevo.lista)  # Output: [None, 1, 2, 6, 4, 7]
-    print(monticulo.tamano())  # Output: 4
+    monticulo1 = monticulo()
+    monticulo1.insertar(5)
+    monticulo1.insertar(3)
+    monticulo1.insertar(8)
+    monticulo1.insertar(1)
+    monticulo1.insertar(4)
+    print(monticulo1.lista)  # Output: [None, 1, 3, 4, 5, 8]
+    print(monticulo1.buscarminimo())  # Output: 1
+    monticulo1.eliminarminimo()
+    print(monticulo1.lista)  # Output: [None, 3, 4, 5, 8]
+    print(monticulo1.tamano())  # Output: 4
+    monticulo2 = monticulo()
+    unalista = [7, 2, 6, 4, 1]
+    monticulo2.construirMonticulo(unalista)
+    print(monticulo2.tamano())  # Output: 5
+    print(monticulo2.lista)  # Output: [None, 1, 2, 6, 4, 7]
+    print(monticulo2.estavacio())  # Output: False
