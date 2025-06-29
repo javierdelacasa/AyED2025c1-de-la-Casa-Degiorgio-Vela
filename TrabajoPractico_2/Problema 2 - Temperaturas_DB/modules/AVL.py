@@ -100,40 +100,6 @@ class Nodo:
 
         return clave_max, cargautil_max
     
-    def preorden(self): # Funcion auxiliar de preorden_visualizacion del AVL
-        print(self.clave) # imprime la clave del nodo
-        # Actua recursivamente en cada hijo
-        if self.hijoIzquierdo:
-            self.hijoIzquierdo.preorden()
-        if self.hijoDerecho:
-            self.hijoDerecho.preorden()
-    
-    def preorden_rango(self, inicio, fin): # Funcion auxiliar de preorden_rango_visualizacion del AVL
-        # Verifica si la clave del nodo actual está dentro del rango
-        if inicio <= self.clave <= fin:
-            print(self.clave)
-        # Actua recursivamente en los hijos si están dentro del rango
-        if self.tieneHijoIzquierdo() and self.clave > inicio:
-            self.hijoIzquierdo.preorden_rango(inicio, fin)
-        if self.tieneHijoDerecho() and self.clave < fin:
-            self.hijoDerecho.preorden_rango(inicio, fin)
- 
-    def preorden_obtencion(self): # Funcion auxiliar de preorden_obtencion del AVL
-        print(self.cargautil) # Imprime la carga util del nodo
-        if self.hijoIzquierdo:
-            self.hijoIzquierdo.preorden_obtencion()
-        if self.hijoDerecho:
-            self.hijoDerecho.preorden_obtencion()
-    
-    def preorden_rango_obtencion(self, inicio, fin): # Funcion auxiliar de preorden_rango_obtencion
-        # Verifica si está dentro del rango
-        if inicio <= self.clave <= fin:
-            print(self.clave,self.cargautil) # Imprime la clave y la carga util del nodo
-        if self.tieneHijoIzquierdo() and self.clave > inicio:
-            self.hijoIzquierdo.preorden_rango_obtencion(inicio, fin)
-        if self.tieneHijoDerecho() and self.clave < fin:
-            self.hijoDerecho.preorden_rango_obtencion(inicio, fin)
-    
     def reemplazarDatoDeNodo(self, clave, valor, hijoIzquierdo, hijoDerecho): 
         self.clave = clave
         self.cargautil = valor
@@ -328,30 +294,6 @@ class Arbol:
             return self.raiz._obtenerminimo_rango(inicio, fin) # Llama a la funcion auxiliar sobre la raiz
         return None
 
-    def preorden_visualizacion(self):
-        if self.raiz is not None:
-            self.raiz.preorden() # Llama a la funcion auxiliar sobre la raiz
-        else:
-            print("El árbol está vacío.")
-
-    def preorden_rango_visualizacion(self, inicio, fin):
-        if self.raiz is not None:
-            self.raiz.preorden_rango(inicio, fin) # Llama a la funcion auxiliar sobre la raiz
-        else:
-            print("El árbol está vacío.")
-
-    def preorden_obtencion(self):
-        if self.raiz is not None:
-            self.raiz.preorden_obtencion() # Llama a la funcion auxiliar sobre la raiz
-        else:
-            print("El árbol está vacío.")
-
-    def preorden_rango_obtencion(self, inicio, fin):
-        if self.raiz is not None:
-            self.raiz.preorden_rango_obtencion(inicio, fin) # Llama a la funcion auxiliar sobre la raiz
-        else:
-            print("El árbol está vacío.")
-
     def eliminar(self,clave):
         if self.tamano > 1:
             nodoAEliminar = self._obtener(clave, self.raiz) # Busca el nodo a eliminar
@@ -422,12 +364,6 @@ class Arbol:
             return self._obtener(clave, nodoActual.hijoDerecho)
         else:
             return None
-        
-    def __iter__(self):
-        if self.raiz is not None:
-            yield from self.raiz # Delega la iteración al nodo raíz
-        
-
 
 if __name__ == "__main__":
     arbol = Arbol()
