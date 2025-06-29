@@ -256,7 +256,6 @@ class Arbol:
                         self.rotarDerecha(nodo)
 
     def rotarIzquierda(self,rotRaiz):
-<<<<<<< HEAD
         nuevaRaiz = rotRaiz.hijoDerecho #  El hijo derecho se convierte en la nueva raíz
         rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo # El hijo izquierdo de la nueva raíz se convierte en el hijo derecho del nodo a rotar
         if nuevaRaiz.hijoIzquierdo != None: 
@@ -265,28 +264,12 @@ class Arbol:
         if rotRaiz.esRaiz(): 
             self.raiz = nuevaRaiz # Si el nodo a rotar es la raíz, se actualiza la raíz del árbol
         else:
-=======
-        nuevaRaiz = rotRaiz.hijoDerecho # La nueva raiz es el hijo derecho de la raiz de rot.
-        rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo # Hijo der de la raiz de rot. sera quien era hijo izq de la nueva raiz
-        if nuevaRaiz.hijoIzquierdo != None:
-            nuevaRaiz.hijoIzquierdo.padre = rotRaiz
-        nuevaRaiz.padre = rotRaiz.padre # La nueva raiz toma el lugar de la raiz de rot.
-        if rotRaiz.esRaiz():
-            self.raiz = nuevaRaiz # Si era raiz del arbol se asigna la nueva
-        else: # De lo contrario se actualiza la referencia en el padre
->>>>>>> f5f02984334dac8ea46415198980b2a39d648ffc
             if rotRaiz.esHijoIzquierdo():
                 rotRaiz.padre.hijoIzquierdo = nuevaRaiz # Si el nodo a rotar es hijo izquierdo, se actualiza el hijo izquierdo del padre
             else:
                 rotRaiz.padre.hijoDerecho = nuevaRaiz
-<<<<<<< HEAD
         nuevaRaiz.hijoIzquierdo = rotRaiz # El nodo a rotar se convierte en el hijo izquierdo de la nueva raíz
         rotRaiz.padre = nuevaRaiz # El padre del nodo a rotar ahora es la nueva raíz
-=======
-        nuevaRaiz.hijoIzquierdo = rotRaiz # La raiz de rot. se posiciona como hijo izq de la nueva raiz
-        rotRaiz.padre = nuevaRaiz
-        # Se actualizan los factores de equilibrio
->>>>>>> f5f02984334dac8ea46415198980b2a39d648ffc
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio + 1 - min(nuevaRaiz.factorEquilibrio, 0)
         nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio + 1 + max(rotRaiz.factorEquilibrio, 0)
 

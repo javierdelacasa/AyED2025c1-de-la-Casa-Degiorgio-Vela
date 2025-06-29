@@ -19,11 +19,7 @@ class Vertice:
     
     def obtenerconectados(self):
         return self.conectadoA # Devuelve el diccionario de adyacencias (vertices vecinos y sus ponderaciones)
-<<<<<<< HEAD
     
-=======
-
->>>>>>> f5f02984334dac8ea46415198980b2a39d648ffc
     def obtenerId(self):
         return self.id # Clave del vertice
 
