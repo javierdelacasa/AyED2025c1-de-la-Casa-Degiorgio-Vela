@@ -3,7 +3,7 @@ from monticulo_min import monticulo
 class Vertice:
     def __init__(self,clave):
         self.id = clave
-        self.conectadoA = {}
+        self.conectadoA = {} # Diccionario de adyacencias
         # Atributos extra para la implementacion de prim
         self.distancia = float('inf')  # Incicialmente infinita, distancia al predecesor
         self.predecesor = None  # Predecesor en el camino más corto
@@ -18,7 +18,7 @@ class Vertice:
         return self.conectadoA.keys() # Devuelve los vertices vecinos
     
     def obtenerconectados(self):
-        return self.conectadoA # Devuelve el diccionario conectadoA (vertices vecinos y sus ponderaciones)
+        return self.conectadoA # Devuelve el diccionario de adyacencias (vertices vecinos y sus ponderaciones)
 
     def obtenerId(self):
         return self.id # Clave del vertice
