@@ -32,7 +32,7 @@ class Temperatura_DB():
         fecha_fin = self.convertir_fecha(fecha_finstr)
         return self.arbol.obtenerminimo_rango(fecha_inicio, fecha_fin)[1] # Devuelve la carga util de la tupla obtenida
     
-    def temp_extemos_rango(self, fecha_iniciostr, fecha_finstr):
+    def temp_extremos_rango(self, fecha_iniciostr, fecha_finstr):
         fecha_inicio = self.convertir_fecha(fecha_iniciostr)
         fecha_fin = self.convertir_fecha(fecha_finstr)
         # Utiliza las funciones obtenermaximo_rango y obtenerminimo_rango del arbol AVL

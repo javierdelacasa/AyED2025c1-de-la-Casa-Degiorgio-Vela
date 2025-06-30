@@ -125,7 +125,7 @@ class Nodo:
                 self.padre.hijoIzquierdo = None
             else:
                 self.padre.hijoDerecho = None
-        else: # Se conectan las referencias entre el padre y el hijo derecho (no podría ser izquierdo porque este sería)
+        else: # Se conectan las referencias entre el padre y el hijo derecho (no podría ser izquierdo porque este sería el sucesor)
             if self.esHijoIzquierdo():
                 self.padre.hijoIzquierdo = self.hijoDerecho
             else:
@@ -240,7 +240,7 @@ class Arbol:
         rotRaiz.factorEquilibrio = rotRaiz.factorEquilibrio - 1 - max(nuevaRaiz.factorEquilibrio, 0)
         nuevaRaiz.factorEquilibrio = nuevaRaiz.factorEquilibrio - 1 + min(rotRaiz.factorEquilibrio, 0)
 
-    def obtener(self, clave): # Recorre el árbol para buscar la clave en forma de pre-orden
+    def obtener(self, clave): # Recorre el árbol para buscar la clave en forma de pre-orden. Retorna la cargautil
         actual = self.raiz
         while True:
             if actual.clave == clave: # Comprueba en cada nodo si la clave es la buscada
@@ -255,26 +255,6 @@ class Arbol:
             
     def __getitem__(self,clave): 
         return self.obtener(clave)
-
-    def obtenermaximo(self):
-        if self.raiz is not None:
-            return self.raiz._obtenermaximo() # Llama a la funcion auxiliar sobre la raiz
-        return None
-
-    def obtenerminimo(self):
-        if self.raiz is not None:
-            return self.raiz._obtenerminimo() # Llama a la funcion auxiliar sobre la raiz
-        return None
-    
-    def obtenermaximo_rango(self,inicio, fin):
-        if self.raiz is not None:
-            return self.raiz._obtenermaximo_rango(inicio, fin) # Llama a la funcion auxiliar sobre la raiz
-        return None
-
-    def obtenerminimo_rango(self,inicio, fin):
-        if self.raiz is not None:
-            return self.raiz._obtenerminimo_rango(inicio, fin) # Llama a la funcion auxiliar sobre la raiz
-        return None
 
     def eliminar(self,clave):
         if self.tamano > 1:
@@ -334,8 +314,8 @@ class Arbol:
     def __delitem__(self,clave):
         self.eliminar(clave)
 
-    def _obtener(self, clave, nodoActual): # Función auxiliar de obtener
-        # Busca el nodo con la clave dada, recursivamente, retorna la clave
+    def _obtener(self, clave, nodoActual): # Función auxiliar de eliminar. Obtiene el nodo a eliminar
+        # Busca el nodo con la clave dada, recursivamente, retorna el nodo
         if nodoActual is None:
             return None
         if nodoActual.clave == clave:
@@ -346,6 +326,26 @@ class Arbol:
             return self._obtener(clave, nodoActual.hijoDerecho)
         else:
             return None
+    
+    def obtenermaximo(self):
+        if self.raiz is not None:
+            return self.raiz._obtenermaximo() # Llama a la funcion auxiliar sobre la raiz
+        return None
+
+    def obtenerminimo(self):
+        if self.raiz is not None:
+            return self.raiz._obtenerminimo() # Llama a la funcion auxiliar sobre la raiz
+        return None
+    
+    def obtenermaximo_rango(self,inicio, fin):
+        if self.raiz is not None:
+            return self.raiz._obtenermaximo_rango(inicio, fin) # Llama a la funcion auxiliar sobre la raiz
+        return None
+
+    def obtenerminimo_rango(self,inicio, fin):
+        if self.raiz is not None:
+            return self.raiz._obtenerminimo_rango(inicio, fin) # Llama a la funcion auxiliar sobre la raiz
+        return None
 
 if __name__ == "__main__":
     arbol = Arbol()

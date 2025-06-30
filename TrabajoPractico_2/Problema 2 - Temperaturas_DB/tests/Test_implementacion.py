@@ -24,12 +24,12 @@ print(f"Temperatura en la fecha {fecha}:", db.devolver_temperatura(fecha), '°C'
 
 # Consultas en rango de fechas
 fecha_inicio = "04/01/2023"
-fecha_fin = "09/02/2023"
+fecha_fin = "09/01/2023"
 print("Temperaturas en rango:")
 db.devolver_temperaturas(fecha_inicio, fecha_fin)
 print("Temperatura máxima en rango:", db.max_temp_rango(fecha_inicio, fecha_fin), '°C')
 print("Temperatura mínima en rango:", db.min_temp_rango(fecha_inicio, fecha_fin), '°C')
-print("Temperaturas extremas en rango:", db.temp_extemos_rango(fecha_inicio, fecha_fin), '°C')
+print("Temperaturas extremas en rango:", db.temp_extremos_rango(fecha_inicio, fecha_fin), '°C')
 
 # Consultar cantidad de muestras
 print("Cantidad de muestras:", db.cantidad_muestras())
