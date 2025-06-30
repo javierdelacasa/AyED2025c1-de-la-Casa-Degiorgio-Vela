@@ -111,18 +111,7 @@ class Nodo:
             hijoDerecho.padre = self
 
     def encontrarSucesor(self):
-        suc = None
-        if self.tieneHijoDerecho(): # Si tiene hijo derecho, el sucesor es el mínimo del subárbol derecho
-            suc = self.hijoDerecho.encontrarMin()
-        else:
-            if self.padre: 
-                if self.esHijoIzquierdo(): # Si es hijo izquierdo, el sucesor es el padre
-                    suc = self.padre
-                else: # Si es hijo derecho, se busca el sucesor en el padre
-                    self.padre.hijoDerecho = None
-                    suc = self.padre.encontrarSucesor()
-                    self.padre.hijoDerecho = self
-        return suc
+        return self.hijoDerecho.encontrarMin()
 
     def encontrarMin(self):
         actual = self
@@ -136,19 +125,12 @@ class Nodo:
                 self.padre.hijoIzquierdo = None
             else:
                 self.padre.hijoDerecho = None
-        elif self.tieneAlgunHijo(): # Se conectan las referencias entre el padre y algun hijo
-            if self.tieneHijoIzquierdo():
-                if self.esHijoIzquierdo():
-                    self.padre.hijoIzquierdo = self.hijoIzquierdo
-                else:
-                    self.padre.hijoDerecho = self.hijoIzquierdo
-                self.hijoIzquierdo.padre = self.padre
+        else: # Se conectan las referencias entre el padre y el hijo derecho (no podría ser izquierdo porque este sería)
+            if self.esHijoIzquierdo():
+                self.padre.hijoIzquierdo = self.hijoDerecho
             else:
-                if self.esHijoIzquierdo():
-                    self.padre.hijoIzquierdo = self.hijoDerecho
-                else:
-                    self.padre.hijoDerecho = self.hijoDerecho
-                self.hijoDerecho.padre = self.padre
+                self.padre.hijoDerecho = self.hijoDerecho
+            self.hijoDerecho.padre = self.padre
 
     def __iter__(self): # Permite iterar sobre el nodo y sus hijos con un inorden
         if self.hijoIzquierdo:
